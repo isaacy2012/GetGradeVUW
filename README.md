@@ -33,15 +33,20 @@ This settings.ini would mean that the active hours are between 9am and 5pm.
 Logging outputs to log.txt:
 
 ```
-Email sent at: 2021-06-10 22:49:05
+Successfully logged in with cookies!
+Email sent at: 2021-06-17 22:11:01
 =================NEW RESULTS=================
-========================================
-SWEN221 - Software Development (2021 T1)
-========================================
-Test 2: 100.0
+Intro to Computer Graphics:     A+
+Intro to Data Struct & Algthms: A+
+Intro to Computer Science:      A+
+Cybersecurity Fundamentals:     A+
+Engineering Technology:         A+
+Engineering Design:             A+
+Probability & Decision Modell:  A+
+Model Differential Equations:   A+
 
 =============================================
-Sleeping for: 15.02 minutes, until 2021-06-10 23:04:07
+Sleeping for: 15.48 minutes, until 2021-06-17 22:26:32
 ```
 
 
