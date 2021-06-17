@@ -8,11 +8,11 @@
 
 <b>Sends an email on new result</b>
 
-GetGrade checks the ECS Assessment marks every 15-30 minutes (random to stop accidentally synchronizing and overloading the server if there are many users) to check if there is a new result. If there is, it uses your gmail account and sends you an email!
+GetGrade checks the VUW student records every 15-30 minutes (random to stop accidentally synchronizing and overloading the server if there are many users) to check if there is a new result. If there is, it uses your gmail account and sends you an email!
 
 <b>Automatic login</b>
 
-Automatically logs into the ECS Assessment Marks page by encrypting and storing your username and password.
+Automatically logs into the VUW student records page by encrypting and storing your username and password. It also reduces the number of repeated logins by storing cookies that a normal browser might, so that after the first login, it should automatically be logged in.
 
 <b>Active Hours</b>
 
