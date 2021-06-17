@@ -1,20 +1,18 @@
-import pickle
-from random import seed
+import time
+from datetime import datetime
 from random import random
-from typing import Dict, List
+from random import seed
+from typing import List
 
 import mechanicalsoup
-from mechanicalsoup import LinkNotFoundError
-from requests.utils import cookiejar_from_dict
 from bs4 import BeautifulSoup
+from mechanicalsoup import LinkNotFoundError
 from tinydb import TinyDB, Query
-import time
-from datetime import datetime, timedelta
 
+import config
 import cookies
 import gmail
 import log
-import config
 
 
 class VUWResult:
