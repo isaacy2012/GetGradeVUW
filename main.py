@@ -86,6 +86,11 @@ ACADEMIC_HISTORY_LINK = "/pls/webprod/bwsxacdh.P_FacStuInfo"
 
 
 def login(browser: mechanicalsoup.StatefulBrowser):
+    """
+    Login to VUW student records with the browser
+    :param browser: the StatefulBrowser to login with
+    :return:
+    """
     browser.select_form("form[action=\"/adfs/ls\"]")
     browser["UserName"] = config.get_username()
     browser["Password"] = config.get_password()
@@ -122,7 +127,12 @@ def login(browser: mechanicalsoup.StatefulBrowser):
     browser.follow_link(ACADEMIC_HISTORY_LINK)
 
 
-def get_entry_indices(entry):
+def get_entry_indices(entry: List[BeautifulSoup.element]):
+    """
+    Gets the indices of the course, title, and grade, given the entry
+    :param entry:
+    :return:
+    """
     course_index = -1
     title_index = -1
     grade_index = -1
