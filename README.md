@@ -1,5 +1,5 @@
-# GetGrade
-## Get grades from ECS Assessment Marks
+# GetGradeVUW
+## Get results from VUW
 
 
 <p float="left">
