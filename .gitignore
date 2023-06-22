@@ -4,3 +4,5 @@
 *.json
 settings.ini
 cookies.cookie
+
+venv/
