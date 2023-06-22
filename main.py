@@ -2,7 +2,7 @@ import time
 from datetime import datetime
 from random import random
 from random import seed
-from typing import List
+from typing import List, Any
 
 import mechanicalsoup
 from bs4 import BeautifulSoup
@@ -91,7 +91,7 @@ def login(browser: mechanicalsoup.StatefulBrowser):
     :param browser: the StatefulBrowser to login with
     :return:
     """
-    browser.select_form("form[action=\"/adfs/ls\"]")
+    browser.select_form("form[action^=\"/adfs/ls\"]")
     browser["UserName"] = config.get_username()
     browser["Password"] = config.get_password()
     browser.submit_selected()
@@ -127,7 +127,7 @@ def login(browser: mechanicalsoup.StatefulBrowser):
     browser.follow_link(ACADEMIC_HISTORY_LINK)
 
 
-def get_entry_indices(entry: List[BeautifulSoup.element]):
+def get_entry_indices(entry: List[Any]):
     """
     Gets the indices of the course, title, and grade, given the entry
     :param entry:
