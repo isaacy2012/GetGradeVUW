@@ -1,4 +1,6 @@
+import os
 import time
+import webbrowser
 from datetime import datetime
 from random import random
 from random import seed
@@ -188,6 +190,7 @@ def query(db: TinyDB, epoch: int):
     try:
         browser.follow_link(ACADEMIC_HISTORY_LINK)
     except LinkNotFoundError:
+        cookies.delete_cookies()
         login(browser)
     else:
         log.print_log("Successfully logged in with cookies!")

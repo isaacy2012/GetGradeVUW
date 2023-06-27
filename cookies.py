@@ -1,3 +1,4 @@
+import os
 import pickle
 from os.path import isfile
 
@@ -18,3 +19,8 @@ def load_cookies(browser):
 
     with open(COOKIE_FILE, "rb") as file:
         browser.session.cookies = cookiejar_from_dict(pickle.load(file))
+
+def delete_cookies():
+    if not isfile(COOKIE_FILE):
+        return
+    os.remove(COOKIE_FILE)
