@@ -73,13 +73,26 @@ def format_results(results: List[VUWResult]) -> str:
     return "".join(str_list)
 
 
-def email(new_results: List[VUWResult]):
+def email_aliveness_check():
+    gmail.send_email("Hello from GetGradeVUW!",
+                     "This message is to let you know that GetGradeVUW started successfully.")
+
+
+def _email_results(subject: str, new_results: List[VUWResult]):
     """
-    Emails the new VUWResults
+    Emails the new results
+    :param subject: the subject of the email
     :param new_results: the new results
     """
-    subject = "New VUW Results" if len(new_results) > 1 else "New VUW Result"
     gmail.send_email(subject, format_results(new_results))
+
+
+def email_initial_results(results: List[VUWResult]):
+    _email_results("GetGradeVUW Initialised With Grades", results)
+
+
+def email_subsequent_results(new_results: List[VUWResult]):
+    _email_results("New VUW Results" if len(new_results) > 1 else "New VUW Result", new_results)
 
 
 ACADEMIC_HISTORY_LINK = "/pls/webprod/bwsxacdh.P_FacStuInfo"
@@ -220,11 +233,11 @@ def query(db: TinyDB, epoch: int):
     time_str = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     if epoch > 0:
         if len(new_results) > 0:
-            email(new_results)
             log.print_log("Email sent at: " + time_str)
             log.log("=================NEW RESULTS=================")
             log.log(format_results(new_results))
             log.log("=============================================")
+            email_subsequent_results(new_results)
         else:
             log.print_log("No new results at: " + time_str)
     else:
@@ -232,6 +245,7 @@ def query(db: TinyDB, epoch: int):
         log.print_log("===============INITIAL RESULTS===============")
         log.print_log(format_results(new_results))
         log.print_log("=============================================")
+        email_initial_results(new_results)
 
 
 def wait_on_exception():
@@ -255,25 +269,27 @@ def main():
     # Initialize gmail
     gmail.init()
 
+    email_aliveness_check()
+
     seed()
     epoch = 0
     while True:
         if config.within_active_hours():
             try:
                 query(db, epoch)
-            except ConnectionError:
-                log.print_log("ConnectionError Handled")
+            except ConnectionError as e:
+                log.print_log(f"ConnectionError Handled {e}")
                 wait_on_exception()
-
-            except:
-                log.print_log("Other Error Handled")
+            except Exception as e:
+                log.print_log(f"Other Error Handled {e}")
                 wait_on_exception()
             else:
-                epoch += 1
                 # Sleep
                 sleep_minutes = 15 + (random() * (30 - 15))
                 log.log_sleep(sleep_minutes)
                 time.sleep(sleep_minutes * 60)
+            finally:
+                epoch += 1
         else:
             sleep_seconds = config.seconds_till_active_hours_begin()
             log.log_sleep(sleep_seconds / 60.0)
